@@ -10,7 +10,7 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   String token = '';
-  getToken() async {
+  Future<void> getToken() async {
     // Simulate fetching token from secure storage or API
     await storage
         .read(key: 'auth_token')
@@ -28,6 +28,13 @@ class _HomepageState extends State<Homepage> {
         .catchError((error) {
           print('Error fetching token: $error');
         });
+  }
+
+  @override
+  initState() {
+    super.initState();
+    // Fetch the token when the page is initialized
+    getToken();
   }
 
   @override
